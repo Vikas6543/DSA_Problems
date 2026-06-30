@@ -1,0 +1,42 @@
+1. Explain Class LifeCycles Methods in React?
+   => There are three phases of the component lifecycle:
+      a. Mounting Phase
+      b. Updating Phase
+      c. Unmounting Phase
+
+   => constructor(): This is the initial method called when a component is created. The state can be initialized here.
+
+   => render(): This method is called to render the JSX returned by the component.
+
+   => componentDidMount(): This method is called after the component is rendered on the screen. This is where you would make API calls to fetch data from the server.
+
+   => componentDidUpdate(): This method is called when the state of the component is updated. This is where you would change the state based on the new props.
+
+   => componentWillUnmount(): This method is called just before the component is removed from the screen. This is where you would clean up any DOM elements or timers created in componentDidMount().
+
+   => componentDidCatch(): This method is called after an error has been thrown by a component's. It is used for logging error information.
+
+
+*******************************************************
+2. Explain Functional LifeCycles Methods in React?
+   => There are two phases of the component lifecycle:
+      a. Mounting Phase
+      b. Updating Phase
+      c. Unmounting Phase
+
+   => Mounting: This form of useEffect with an empty dependency array ([]) will be called only once, immediately after the component is mounted to the DOM. It is equivalent to the componentDidMount lifecycle method. You can perform initialization tasks or make API requests here.
+         useEffect(() => {
+            console.log('Hello Vikas');
+         }, []);
+
+   => Updating: When you provide a dependency array with one or more dependencies, useEffect will be triggered whenever any of the dependencies change. It helps you control when the effect should run. If any of the dependencies haven't changed since the previous render, the effect will be skipped.
+         useEffect(() => {
+            console.log('Hello Vikas');
+         }, [name]);
+
+   => Unmounting: This form of useEffect will be called just before the component is removed from the DOM. It is equivalent to the componentWillUnmount lifecycle method. You can perform any cleanup tasks here.
+           useEffect(() => {
+                return () => {
+                console.log('Goodbye Vikas');
+                };
+            }, []);

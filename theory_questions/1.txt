@@ -1,0 +1,229 @@
+1. What are promises and how do they work in JavaScript?
+   => Promises are a feature in JavaScript that allow developers to handle asynchronous operations and avoid callback hell. A promise is an object that represents a value that may not be available yet, but will be resolved in the future. The value can be a success result or an error.
+      Promises have three states:
+        a. Pending: The initial state of a promise. The promise is neither fulfilled nor rejected.
+        b. Fulfilled: The promise has been resolved successfully and a value is available.
+        c. Rejected: The promise has been rejected and an error reason is available.
+
+   => Example Code:
+        const myPromise = new Promise((resolve, reject) => {
+        const timeout = 2000;
+        if (timeout < 0) {
+          reject('delay with negative number');
+        }
+        setTimeout(() => {
+          resolve('delay after ' + timeout);
+        }, timeout);
+      });
+
+      myPromise
+       .then((result) => {
+         console.log(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      
+
+*******************************************************
+2. How do you use callbacks to handle asynchronous code execution in JavaScript?
+   => function doAsyncTask(callback) {
+        setTimeout(function() {
+          callback('Task complete!');
+        }, 1000);
+      }
+
+      doAsyncTask(function(result) {
+        console.log(result); // Outputs: "Task complete!"
+      });
+
+*******************************************************
+3. What is hoisting and how does it work in JavaScript?
+   => In JavaScript, hoisting is a behavior where variable & function declarations are moved to the top of their respective scopes during the compilation phase, before the code is actually executed. This means that regardless of where variables and functions are declared within a scope, they are interpreted as if they had been declared at the top of the scope.
+    
+   => Example Code:
+      a. console.log(x); // output: undefined
+         var x = 10;
+
+*******************************************************
+4. What is the difference between null & undefined in JavaScript?
+   => In JavaScript, null & undefined are both values that indicate the absence of a value, but they are used in different ways.
+
+   => null is a value that represents the intentional absence of any object value. It is often used as a placeholder value when a value is expected but not yet known or cannot be represented. For example:
+       let y = null;
+       console.log(y); // prints null
+
+    => undefined is a value that is assigned to a variable that has been declared but has not been assigned a value. It is also the default value of function parameters that are not passed a value. For example:
+       let x;
+       console.log(x); // prints undefined
+
+    => In summary, undefined is used to indicate that a variable has not been assigned a value, while null is used to indicate that a variable has been intentionally assigned a null value.
+
+*******************************************************
+5. What is a closure and how does it work in JavaScript?
+   => In JavaScript, a closure is a function that has access to its outer function's scope even after the outer function has returned. This means a closure can remember and access variables and arguments of its outer function even after the function has finished.
+
+   => Example Code:
+      function outer() {
+       var outerVar = 'I am outer';
+
+      function inner() {
+       console.log(outerVar);
+      }
+
+      return inner;
+    }
+
+    var innerFunc = outer();
+    innerFunc(); // Output: 'I am outer'
+
+    => advantages: Closures are powerful because they allow functions to have "private" variables and methods, which can only be accessed by the functions defined inside the closure. This makes it possible to write more modular and reusable code, and can also improve performance by avoiding global variable lookups.
+
+    => disadvantages: The disadvantages of closures are an increased memory consumption and the fact that inner functions are not cached. This means if you return the inner function and call it later on, it will create a new instance every time.
+
+*******************************************************
+6. What are classes & how do you create a class in JavaScript?
+   => Classes are a feature in JavaScript that allow developers to create blueprints for objects. Classes are declared with the class keyword, also a class can have a constructor, methods, getters & setters.
+
+   => Example Code: 
+        class Person {
+          constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+
+        sayHello() {
+          console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+        }
+      }
+
+        const person1 = new Person('Alice', 25);
+        const person2 = new Person('Bob', 30);
+
+        person1.sayHello(); // Output: "Hello, my name is Alice and I am 25 years old."
+        person2.sayHello(); // Output: "Hello, my name is Bob and I am 30 years old."
+
+*******************************************************
+7. What is recursion and how does it work in JavaScript?
+   => Recursion is a technique in programming where a function calls itself repeatedly until a base condition is met. In other words, it's a function that solves a problem by breaking it down into smaller sub-problems.
+
+   => Example Code:
+      function factorial(n) {
+        if (n === 1) {
+          return 1;
+        } else {
+          return n * factorial(n - 1);
+        }
+      }
+
+      console.log(factorial(5)); // Output: 120
+
+*******************************************************
+8. How do you use the "this" keyword in in JavaScript?
+   => In JavaScript, the this keyword refers to the current object of the function or the global object if the function is not part of any object.
+
+   => Example Code: 
+        const person = {
+            name: 'Alice',
+            sayHello() {
+            console.log(`Hello, my name is ${this.name}`);
+            }
+        };
+        person.sayHello(); // Output: "Hello, my name is Alice"
+
+        function myFunction() {
+          console.log(this);
+        }
+        myFunction(); // logs the global object (e.g. Window in a browser)
+
+*******************************************************
+9. Explain Call, Apply, & Bind Method in JavaScript?
+   => In JavaScript, call, apply, & bind are methods that allow us to control the value of this keyword when invoking functions.
+
+   const person = {
+     name: 'vikas',
+     likes: 'cricket',
+     print: function (country) {
+        console.log(
+      `my name is ${this.name} & i like ${this.likes} and he is from ${country}`
+     );
+   },
+ };
+
+   const person2 = {
+     name: 'virat',
+     likes: 'footbal',
+   };
+
+   => Call:
+      a. The call() method allows us to call a function with a specific value for "this" and with any number of arguments passed individually.
+      b. The first argument to call() is the object to be used as "this" inside the function, and any subsequent arguments are passed to the function as parameters.
+      
+      Example Code: person.print.call(person2, 'india');
+        
+   => Apply:
+       The apply() method is similar to call(), but the second argument is an array of arguments to be passed to the function instead of being passed individually.
+
+       Example Code: person.print.apply(person2, ['india']);
+    
+   => Bind:
+       The bind() method is similar to call(), but it doesn't immediately call the function. Instead, it returns a new function with the this value and any arguments that were passed to bind().
+
+       Example Code: const result = person.print.bind(person2, 'india');
+       
+*******************************************************
+10. Slice & Splice Methods in JavaScript?
+   => The slice() method returns a shallow copy of a portion of an array into a new array  selected from start to end (end not included) where start and end represent the index of items in that array.
+
+   => syntax - array.slice(startIndex, endIndex)
+
+   => the slice() method does not mutate or change the original array, but returns a new one.
+
+   => Example Code: 
+      const arr = ['apple', 'banana', 'cherry', 'dates', 'elderberry'];
+
+      const slicedArr = arr.slice(1, 4);
+
+      console.log(slicedArr); // Output: ['banana', 'cherry', 'dates']
+      console.log(arr); // Output: ['apple', 'banana', 'cherry', 'dates', 'elderberry']
+
+    => The splice() method changes the content of an array by removing or replacing existing elements and/or adding new elements to the array. It modifies the original array.
+
+    => syntax - array.splice(startIndex, deleteCount, item1, item2, ..., itemX)
+
+    => const arr = ['apple', 'banana', 'cherry', 'dates', 'elderberry'];
+       arr.splice(2, 2, 'grape', 'kiwi');
+
+       console.log(arr); // Output: ['apple', 'banana', 'grape', 'kiwi', 'elderberry']
+
+*******************************************************
+11. Higher order functions in js explain?
+   => A higher-order function is a function that takes another function as an argument or returns a function as a result.
+
+   => Example Code: 
+      function createMultiplier(num) {
+        return function(x) {
+          return num * x;
+        }
+      }
+
+      const double = createMultiplier(2);
+      const triple = createMultiplier(3);
+
+      console.log(double(5)); // output: 10
+      console.log(triple(5)); // output: 15
+
+*******************************************************
+12. Function Currying in JavaScript?
+   => Currying is a technique in functional programming where a function that takes multiple arguments and are transformed into a series of functions that each take a single argument.
+
+   => Example Code:
+        function add(x) {
+          return function(y) {
+          return x + y;
+        }
+      }
+
+      const addTwo = add(2);
+      console.log(addTwo(3)); // output: 5
+      

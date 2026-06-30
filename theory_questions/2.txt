@@ -1,0 +1,22 @@
+1. What is a pure function js explain?
+   => A pure function in JavaScript is a function that always returns the same output for a given input and does not have any side effects on the program.
+
+   => which means that it produces the same output every time it is called with the same inputs.
+
+   => function add(a, b) {
+        return a + b;
+      }
+
+      The "add" function takes two arguments a and b, and always returns their sum. It does not modify any variables or data outside of its own scope, and it does not rely on any external state. The function has no side effects and is considered pure.
+
+   => On the other hand, here's an example of a function that is not pure:
+      let counter = 0;
+
+      function increment() {
+        counter++;
+        return counter;
+     }
+
+     The increment function modifies the counter variable outside of its own scope, which means that it has side effects on the program. Additionally, the function does not always return the same output for a given input, since it depends on the current value of counter. Therefore, the increment function is not pure.
+
+
